@@ -2,10 +2,24 @@ import { useState } from "react";
 import React from "react";
 import {auth } from "../../firebase"
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const userSignOut = () => {
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log("user signed out");
+    }).catch((error) => {
+        // An error happened.
+        console.log(error);
+    });
+}
+
 
     const signup = (e) => {
         //todo: signup logic
@@ -13,6 +27,8 @@ const SignUp = () => {
         createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             // Signed in
             console.log(userCredential);
+            userSignOut();
+            navigate("/");
             // ...
         }).catch((error) => {
             console.log(error);
@@ -49,7 +65,7 @@ const SignUp = () => {
           Sign Up
         </button>
         <p className="sign-up">
-           Already have an account? <a href="#">Sign in now</a>
+           Already have an account? <a href="/">Sign in now</a>
         </p>
       </form>
     </div>
