@@ -20,7 +20,7 @@ const SignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-       move("/signup")
+       move("/Home")
         // ...
       })
       .catch((error) => {
