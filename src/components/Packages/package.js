@@ -18,11 +18,11 @@ export async function GetPackages() {
     querySnapshot.forEach((doc) => { pkgs.push({
         id: doc.id,
         name: doc.data().pkgName,
-        lng: doc.data().pkgLoc._long,
-        lat: doc.data().pkgLoc._Lat,
+        lng: doc.data().pkgLoc.longitude,
+        lat: doc.data().pkgLoc.latitude,
         status: doc.data().pkgStatus
     })})
-    console.log(pkgs)
+    //console.log(pkgs)
     return pkgs
 }
 export default {CreatePackage, GetPackages}
