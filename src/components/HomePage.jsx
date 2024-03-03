@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import MyMaps from "./GoogleMaps/GoogleMaps"
 import {CreatePackage, GetPackages} from "./Packages/package";
+import PackageCard from "./Card/Card";
 
 function HomePage() {
   const [authUser, setAuthUser] = useState(null);
@@ -39,6 +40,10 @@ function HomePage() {
     });
   };
 
+  var [packages, setPackages] = useState([])
+  const firePkgs = GetPackages().then((pkgs)=> {
+    setPackages(pkgs)
+  })
 
   return (
     <div>
@@ -46,12 +51,15 @@ function HomePage() {
       {authUser ? (
         <>
           <button onClick={userSignOut}>Sign Out</button>
-          <MyMaps />
+          
         </>
       ) : (
         <p>Signed Out</p>
       )}
-      <button onClick={GetPackages}>LOG PACKAGES</button>
+      {packages.map((pkg)=> 
+            <PackageCard name={pkg.name} status={pkg.status} lng={pkg.lng} lat={pkg.lat}/>
+          )}
+      <button onClick={GetPackages}>LOAD PACKAGES</button>
 
     </div>
   );
