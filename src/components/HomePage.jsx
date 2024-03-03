@@ -4,7 +4,7 @@ import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import MyMaps from "./GoogleMaps/GoogleMaps"
-import CreatePackage from "./Packages/package";
+import {CreatePackage, GetPackages} from "./Packages/package";
 
 function HomePage() {
   const [authUser, setAuthUser] = useState(null);
@@ -51,6 +51,8 @@ function HomePage() {
       ) : (
         <p>Signed Out</p>
       )}
+      <button onClick={GetPackages}>LOG PACKAGES</button>
+
     </div>
   );
 }
