@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import SignIn from './components/Auth/signin';
 import SignUp from './components/Auth/signup';
-import HomePage from './components/AuthDetails';
+import HomePage from './components/HomePage';
 
 import {
   BrowserRouter as Router,

@@ -1,25 +1,28 @@
-import {GeoPoint, collection, doc, setDoc, getDoc } from "firebase/firestore"; 
+import {GeoPoint, collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"; 
 import { db } from "../../firebase";
 const itemsRef = collection(db, "items");
 
-async function CreatePackage (lng,lat, pkgName, pkgStatus) {
+export async function CreatePackage (lng,lat, pkgName, pkgStatus) {
     await setDoc(doc(itemsRef), {
-        'pkg-loc': new GeoPoint(12.23, 12.24),
-        'pkg-name': "Parcel-2",
-        'pkg-status' : "progress",
+        'pkgLoc': new GeoPoint(12.23, 12.24),
+        'pkgName': "Parcel-2",
+        'pkgStatus' : "progress",
         });
     
 }
 
-async function GetPackages() {
+export async function GetPackages() {
 
-    const docSnap = await getDoc(itemsRef);
-    
-    if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-    } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-    }
+    const querySnapshot = await getDocs(itemsRef);
+    let pkgs= []
+    querySnapshot.forEach((doc) => { pkgs.push({
+        id: doc.id,
+        name: doc.data().pkgName,
+        lng: doc.data().pkgLoc._long,
+        lat: doc.data().pkgLoc._Lat,
+        status: doc.data().pkgStatus
+    })})
+    console.log(pkgs)
+    return pkgs
 }
-export default CreatePackage
+export default {CreatePackage, GetPackages}
