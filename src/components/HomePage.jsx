@@ -5,7 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import MyMaps from "./GoogleMaps/GoogleMaps"
 
-const AuthDetails = () => {
+export const HomePage = () => {
     const [authUser, setAuthUser] = useState(null);
     const navigate = useNavigate();
     useEffect(() => {
@@ -54,4 +54,4 @@ const AuthDetails = () => {
   );
 };
 
-export default AuthDetails;
+export default HomePage;

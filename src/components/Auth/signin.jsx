@@ -4,9 +4,13 @@ import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "../../Styles/signin_style.css";
 import {  useNavigate } from "react-router-dom";
+import { doc } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
+
 
 const SignIn = () => {
   const move = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,12 +20,12 @@ const SignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log(userCredential);
-        move("/Home");
+       move("/signup")
         // ...
       })
       .catch((error) => {
         console.log(error);
+        setErrorMessage("Invalid Credentials");
       });
   };
 
@@ -61,6 +65,9 @@ const SignIn = () => {
           New to App? <a href="/signup">Sign up now</a>
         </p>
       </form>
+      {errorMessage && (
+    <p className="error"> {errorMessage} </p>
+    )}
     </div>
   );
 };
