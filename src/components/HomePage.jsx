@@ -47,7 +47,6 @@ function HomePage() {
 
   return (
     <div>
-      <button onClick={CreatePackage}>CREATE PACKAGE</button>
       {authUser ? (
         <>
           <button onClick={userSignOut}>Sign Out</button>
@@ -59,7 +58,6 @@ function HomePage() {
       {packages.map((pkg)=> 
             <PackageCard name={pkg.name} status={pkg.status} lng={pkg.lng} lat={pkg.lat}/>
           )}
-      <button onClick={GetPackages}>LOAD PACKAGES</button>
 
     </div>
   );
