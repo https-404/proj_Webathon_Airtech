@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function PackageCard(props) {
     var weatherData = {}
     var [weather, setWeather] = useState('')
-    const url=`http://api.weatherapi.com/v1/current.json?q=${props.lat},${props.lng}&key=12181df4bc424428a9782003240303`
+    const url=`http://api.weatherapi.com/v1/current.json?q=${props.lat},${props.lng}&key=${process.env.REACT_APP_WEATHER_API}`
     fetch(url)
     .then(response => response.json())
     .then(data => {
